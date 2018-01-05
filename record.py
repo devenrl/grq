@@ -45,8 +45,19 @@ def main():
     wsClient = myWebsocketClient()
     wsClient.start()
     print(wsClient.url, wsClient.products)
+    count = 0
     while True:
-        time.sleep(10)
+        time.sleep(1)
+        count += 1
+
+        if count == 3600:
+            count = 0
+            # once an hour, reset the connection
+            print "Closing and resetting client"
+            wsClient.close()
+            wsClient = myWebsocketClient()
+            wsClient.start()
+
     wsClient.close()
 
 
