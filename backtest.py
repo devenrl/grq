@@ -1,6 +1,6 @@
 import argparse
 import importlib
-from datetime import datetime
+
 
 def main():
     aparser = argparse.ArgumentParser()
@@ -22,7 +22,7 @@ def main():
     print "Final feed length:", len(sorted_feed)
 
     # Initialize some random starting values:
-    brain.USD = 10
+    brain.USD = 1000
     brain.BTC = 0
     brain.ETH = 0
 
@@ -30,6 +30,9 @@ def main():
         brain.send_tick(tick)
 
     print "final value:", brain.final_value()
+
+    # for f in brain.change_rates:
+    #     print f
 
 
 def read_history(fn):
@@ -39,7 +42,6 @@ def read_history(fn):
     lines = [x.split("\t") for x in data.split("\n")][:-1]
 
     products = set([x[0] for x in lines])
-
 
     by_product = {}
     for product in products:
